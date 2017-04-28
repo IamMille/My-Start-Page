@@ -4,6 +4,7 @@ import App from './App';
 import './index.css';
 import * as firebase from 'firebase';
 
+
 const config = {
     apiKey: "AIzaSyDyQbQD61hwxRSQpyNll8EFRWPEb97R7Wc",
     authDomain: "widgify-caa66.firebaseapp.com",
@@ -15,8 +16,7 @@ const config = {
 firebase.initializeApp(config);
 
 
-
 ReactDOM.render(
-  <App />,
-  document.getElementById('root')
+    <App />,
+    document.getElementById('root')
 );
