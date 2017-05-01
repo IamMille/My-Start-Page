@@ -45,7 +45,10 @@ class Notepad extends Component {
     }
 
     render() {
-        const injectButton = this.props.uid?<RaisedButton label="Inject random word" onTouchTap={this.handleRandomWord} />:<RaisedButton label="log in to use additional functions"  />;
+        console.log('render Notepad.js');
+        console.log(this.props.uid);
+
+        const injectButton = this.props.uid?<RaisedButton label="Inject random word" onTouchTap={this.handleRandomWord} />:<RaisedButton label="log in to use additional functions"/>;
         return (
             <Card>
                 <CardHeader title="Notepad" subtitle="Type whatever is on you mind"/>

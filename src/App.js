@@ -34,9 +34,9 @@ class App extends Component {
         firebase.auth().signInWithRedirect(provider);
     };
 
-    signOut=()=>{
+    handleSignOut=()=>{
         firebase.auth().signOut().then(function() {
-            console.log('Signed out!')
+            console.log('Signed out!');
         }).catch(function(error) {
             console.log(`Could't sign out!`);
             console.log(error);
@@ -52,21 +52,14 @@ class App extends Component {
                 this.setState({uid: user.uid});
             } else {
                 console.log('no user logged in');
-                this.setState({uid: null});
+                this.setState({uid: false});
             }
         }.bind(this));
-
-        firebase.auth().getRedirectResult().then((res)=>{
-            const user = res.user;
-            if(user){
-                console.log(user.uid)
-            }
-        });
 
     }
 
     render() {
-        console.log(this.state.uid);
+        console.log('render App.js');
             return (
             <Container muiTheme={getMuiTheme()}>
                 <Grid fluid>
@@ -78,9 +71,9 @@ class App extends Component {
                     </Dialog>
                     <Row around="xs"  middle="xs">
                         <Col className="widget" xs={12}>
-                            <Header popupAction={this.popupAction} signOut={this.signOut} />
+                            <Header popupAction={this.popupAction} signOut={this.handleSignOut} uid={this.state.uid} />
                         </Col>
-                        <Col className="widget " xs={12}  md={6} lg={4}>
+                        <Col className="widget " xs={12}  md={6} lg={8}>
                             <Notepad uid={this.state.uid}/>
                         </Col>
                         <Col className="widget" xs={12}  md={6} lg={4}>
@@ -95,7 +88,7 @@ class App extends Component {
                         <Col className="widget" xs={12}  md={6} lg={4}>
                             <TestData />
                         </Col>
-                        <Col className="widget" xs={12}  md={6} lg={4}>
+                        <Col className="widget" xs={12}  md={6} lg={12}>
                             <TestData />
                         </Col>
                     </Row>
