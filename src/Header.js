@@ -29,13 +29,11 @@ class Header extends Component {
 
 
     render() {
-        console.log('render Header.js');
-        console.log(this.props.uid);
         return (
             <Card>
-                <AppBar title="Widgify" showMenuIconButton={false} iconElementRight={this.props.uid? <FlatButton  label="Sign Out" onTouchTap={this.props.signOut}/>:<FlatButton  label="Login" onTouchTap={this.props.popupAction}/>}/>
+                <AppBar title="Widgify"  showMenuIconButton={false} iconElementRight={this.props.uid? <FlatButton  label="Sign Out" onTouchTap={this.props.signOut}/>:<FlatButton  label="Log in" onTouchTap={this.props.popupAction}/>}/>
                 <CardText style={{justifyContent: 'space-around', display: 'flex'}}>
-                    <TextField name='search' type="text" fullWidth={true}  onChange={this.handleChange} onKeyPress={this.handleKeyPress} hintText="search the web"/>
+                    <TextField name='search' type="text" fullWidth={true}  onChange={this.handleChange} onKeyPress={this.handleKeyPress} hintText={`search the web`}/>
                     <FlatButton label='search' style={{width:'28%', margin:'0 1% 0 1%'}} onTouchTap={this.handleClick}/>
                 </CardText>
             </Card>

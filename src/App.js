@@ -20,7 +20,8 @@ class App extends Component {
         this.state = {
             uid: false,
             menu: false,
-            authPopup: false
+            authPopup: false,
+            username: ''
         }
     }
     //handle auth
@@ -29,9 +30,15 @@ class App extends Component {
         this.setState({authPopup: !this.state.authPopup});
     };
 
-    handleLogin=()=> {
-        const provider = new firebase.auth.GithubAuthProvider();
-        firebase.auth().signInWithRedirect(provider);
+    handleLogin=(i)=> {
+        let provider;
+        switch (i) {
+            case 0: provider =  new firebase.auth.GithubAuthProvider(); break;
+            case 1: provider =  new firebase.auth.GoogleAuthProvider(); break;
+            case 2: provider =  new firebase.auth.FacebookAuthProvider(); break;
+            default: provider =  new firebase.auth.TwitterAuthProvider();
+        }
+        firebase.auth().signInWithPopup(provider).then(this.setState({authPopup:false}));
     };
 
     handleSignOut=()=>{
@@ -45,37 +52,36 @@ class App extends Component {
 
     componentWillMount() {
         firebase.auth().onAuthStateChanged(function(user) {
-            console.log('onauthchange');
             console.log(user);
             if (user) {
                 console.log('user logged in');
-                this.setState({uid: user.uid});
+                this.setState({uid: user.uid, username: user.displayName});
             } else {
                 console.log('no user logged in');
-                this.setState({uid: false});
+                this.setState({uid: false, username: ''});
             }
         }.bind(this));
 
     }
 
     render() {
-        console.log('render App.js');
             return (
             <Container muiTheme={getMuiTheme()}>
                 <Grid fluid>
                     <Dialog open={this.state.authPopup} titleStyle={{textAlign: 'center'}} actions={ <RaisedButton fullWidth={true}  label="Close" primary={true} onTouchTap={this.popupAction}/>} title="Log in with one of the following providers" >
-                        <FlatButton fullWidth={true} label="Github" onTouchTap={this.handleLogin}/>
-                        <FlatButton fullWidth={true} label="Google" onTouchTap={this.handleLogin}/>
-                        <FlatButton fullWidth={true} label="Facebook" onTouchTap={this.handleLogin}/>
-                        <FlatButton fullWidth={true} label="Twitter" onTouchTap={this.handleLogin}/>
+                        <FlatButton fullWidth={true} label="Github" onTouchTap={()=>this.handleLogin(0)}/>
+                        <FlatButton fullWidth={true} label="Google" onTouchTap={()=>this.handleLogin(1)}/>
+                        <FlatButton fullWidth={true} label="Facebook" onTouchTap={()=>this.handleLogin(2)}/>
+                        <FlatButton fullWidth={true} label="Twitter" onTouchTap={()=>this.handleLogin()}/>
                     </Dialog>
                     <Row around="xs"  middle="xs">
                         <Col className="widget" xs={12}>
                             <Header popupAction={this.popupAction} signOut={this.handleSignOut} uid={this.state.uid} />
                         </Col>
                         <Col className="widget " xs={12}  md={6} lg={8}>
-                            <Notepad uid={this.state.uid}/>
+                            <Notepad uid={this.state.uid} username={this.state.username} popupAction={this.popupAction}/>
                         </Col>
+
                         <Col className="widget" xs={12}  md={6} lg={4}>
                             <TestData />
                         </Col>
