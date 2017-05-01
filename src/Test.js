@@ -4,18 +4,12 @@ import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 
 class TestData extends Component {
-    constructor(){
-        super();
-        this.state = {
-            text: 'Hello Word'
-        }
-    }
     render() {
         return (
             <Card>
                 <CardHeader
                     title="Test Widget"
-                    subtitle="I don't know"
+                    subtitle="Placeholder"
                     actAsExpander={false}
                     showExpandableButton={false}
                 />
@@ -32,12 +26,7 @@ class TestData extends Component {
                     Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
                     Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
                     Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-                    Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-                    Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-                    Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
+                    Lorem ipsum dolor sit amet, consecteturuam sed pellentesque.
                     Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
 
                 </CardText>
