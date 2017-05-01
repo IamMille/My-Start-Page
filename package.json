@@ -1,5 +1,6 @@
 {
   "name": "widgify",
+  "hompage": "https://iammille.github.io/widgify/build/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
