@@ -1,8 +1,8 @@
 {
   "name": "widgify",
+  "hompage": "https://iammille.github.io/widgify/build/",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://iammille.github.io/widgify/build",
   "dependencies": {
     "firebase": "^3.9.0",
     "material-ui": "^0.17.4",
