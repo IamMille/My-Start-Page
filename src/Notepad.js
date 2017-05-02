@@ -48,12 +48,16 @@ class Notepad extends Component {
         const injectButton = this.props.uid?<RaisedButton label="Inject random word" onTouchTap={this.props.uid?this.handleRandomWord:console.log('log in')} />:<RaisedButton label="log in to use additional functions" onTouchTap={this.props.popupAction}/>;
         return (
             <Card>
-                <CardHeader title="Notepad" subtitle={`type whatever is on your mind ${this.props.username}`}/>
+                <CardHeader title="Notepad" showExpandableButton={this.props.uid?true:false} subtitle={`keep yourself up to date`}/>
+                <CardActions expandable={true}>
+                    <RaisedButton label="Hide widget" />
+                    <RaisedButton label="Do something" />
+                </CardActions>
                 <CardActions>
                     {injectButton}
                 </CardActions>
                 <CardText>
-                    <TextField name='text' value={this.state.text} rows={11} rowsMax={11} fullWidth={true} multiLine={true} hintText="what's on you mind?" onChange={this.props.uid?this.handleChange:console.log('log in')}/>
+                    <TextField name='text' value={this.state.text} rows={11} rowsMax={11} fullWidth={true} multiLine={true} hintText={`what's on you mind ${this.props.uid?',': ' '} ${this.props.username}?`} onChange={this.props.uid?this.handleChange:console.log('log in')}/>
                 </CardText>
             </Card>
         );

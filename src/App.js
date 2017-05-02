@@ -19,7 +19,6 @@ class App extends Component {
         super();
         this.state = {
             uid: false,
-            menu: false,
             authPopup: false,
             username: ''
         }
