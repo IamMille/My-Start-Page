@@ -6,3 +6,20 @@
   height: 455px;
   overflow-y: auto;
 }
+
+.pin {
+  font-size:5em;
+  display: inline-block;
+}
+.pin:hover {
+  background-color: rgb(0, 188, 212);
+  cursor: pointer;
+}
+.selected {
+  background-color: rgb(255, 64, 129);
+}
+
+.btnRemove {
+  font-size: 1.2em;
+  margin-top: 10px;
+}

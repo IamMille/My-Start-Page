@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
-import './game.css';
+import './App.css';
 
 class Game extends Component
 {
