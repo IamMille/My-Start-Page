@@ -3,6 +3,6 @@
   padding: 10px 0 10px 0;
 }
 .widget:not(:first-child) > div{
-  height: 450px;
+  height: 455px;
   overflow-y: auto;
 }
