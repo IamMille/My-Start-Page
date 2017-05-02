@@ -95,7 +95,10 @@ class App extends Component {
                         <Col className="widget" xs={12}  md={6} lg={4}>
                             <TestData />
                         </Col>
-                        <Col className="widget" xs={12}  md={6} lg={12}>
+                        <Col className="widget" xs={12}  md={6} lg={4}>
+                            <TestData />
+                        </Col>
+                        <Col className="widget" xs={12}  md={12} lg={8}>
                             <TestData />
                         </Col>
                     </Row>

@@ -11,7 +11,7 @@ class Info extends Component {
         super(props);
         this.state = {
             popup: false,
-            buttons: [{topic: 'How to sign up', category: 'Registration'},{topic: 'How to change theme', category: 'Styling'},{topic: 'How to hide widgets', category: 'Styling'},{topic: 'Anything else on you mind?', category: 'Contact'}]
+            buttons: [{topic: 'How to sign up', category: 'Registration'},{topic: 'Make Widgify better', category: 'Charity'},{topic: 'How to change theme', category: 'Styling'},{topic: 'How to hide widgets', category: 'Styling'},{topic: 'Anything else on you mind?', category: 'Contact'}]
         }
     }
 
@@ -37,8 +37,8 @@ class Info extends Component {
 class PopupInfo extends Component {
     render(){
         return(
-            <Dialog open={this.props.popup} titleStyle={{textAlign: 'center'}} actions={ <RaisedButton fullWidth={true}  label="Close" primary={true} onTouchTap={this.props.popupAction}/>} title="Question" >
-                <h1> Hello </h1>
+            <Dialog open={this.props.popup} titleStyle={{textAlign: 'center'}} actions={ <RaisedButton fullWidth={true}  label="Close" primary={true} onTouchTap={this.props.popupAction}/>} title="How to do that thing" >
+                <p>Turn it off and on again</p>
             </Dialog>
         );
     }
