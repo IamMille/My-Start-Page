@@ -16,7 +16,6 @@ class Info extends Component {
     }
 
     popupAction = (e) => {
-        console.log(e.target.innerText);
         this.setState({popup: !this.state.popup});
     };
 
