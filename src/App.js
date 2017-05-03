@@ -4,6 +4,7 @@ import Header from './Header'
 import Notepad from './Notepad'
 import Info from './Info'
 import Game from './Game'
+import Video from './Video'
 import TestData from './Test'
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Container from 'material-ui/styles/MuiThemeProvider';
@@ -99,7 +100,7 @@ class App extends Component {
                             <TestData />
                         </Col>
                         <Col className="widget" xs={12}  md={12} lg={8}>
-                            <TestData />
+                            <Video />
                         </Col>
                     </Row>
                 </Grid>
