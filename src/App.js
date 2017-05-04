@@ -5,6 +5,7 @@ import Notepad from './Notepad'
 import Info from './Info'
 import Game from './Game'
 import Video from './Video'
+import News from './News'
 import TestData from './Test'
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Container from 'material-ui/styles/MuiThemeProvider';
@@ -14,6 +15,19 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import * as firebase from 'firebase';
+/*import {teal500, tealA200} from 'material-ui/styles/colors';
+
+const muiTheme = getMuiTheme({
+    palette: {
+        primary1Color: teal500,
+        accent1Color: tealA200,
+    },
+    raisedButton: {
+        color: teal500,
+
+    }
+});*/
+
 injectTapEventPlugin();
 
 
@@ -45,21 +59,17 @@ class App extends Component {
 
     handleSignOut=()=>{
         firebase.auth().signOut().then(function() {
-            console.log('Signed out!');
+            console.log('Signed Out!');
         }).catch(function(error) {
-            console.log(`Could't sign out!`);
             console.log(error);
         });
     };
 
     componentWillMount() {
         firebase.auth().onAuthStateChanged(function(user) {
-            console.log(user);
             if (user) {
-                console.log('user logged in');
                 this.setState({uid: user.uid, username: user.displayName});
             } else {
-                console.log('no user logged in');
                 this.setState({uid: false, username: ''});
             }
         }.bind(this));
@@ -81,14 +91,13 @@ class App extends Component {
                             <Header popupAction={this.popupAction} signOut={this.handleSignOut} uid={this.state.uid} />
                         </Col>
                         <Col className="widget " xs={12}  md={6} lg={8}>
-                            <Notepad uid={this.state.uid} username={this.state.username} popupAction={this.popupAction}/>
+                            <News />
                         </Col>
-
                         <Col className="widget" xs={12}  md={6} lg={4}>
                             <Info />
                         </Col>
                         <Col className="widget" xs={12}  md={6} lg={4}>
-                            <TestData />
+                            <Notepad uid={this.state.uid} username={this.state.username} popupAction={this.popupAction}/>
                         </Col>
                         <Col className="widget" xs={12}  md={6} lg={4}>
                             <Game />
