@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Header from './Header'
+import Note from './Note'
 import Notepad from './Notepad'
 import TestData from './Test'
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -82,7 +83,7 @@ class App extends Component {
                         </Col>
 
                         <Col className="widget" xs={12}  md={6} lg={4}>
-                            <TestData />
+                            <Note uid={this.state.uid}/>
                         </Col>
                         <Col className="widget" xs={12}  md={6} lg={4}>
                             <TestData />

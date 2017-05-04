@@ -15,7 +15,7 @@ class Notepad extends Component {
         }
     }
     handleChange=(e)=>{
-        this.setState({[e.target.name]: e.target.value});
+        this.setState({text: e.target.value});
         firebase.database().ref(`users/${this.props.uid}/notepad`).update({
            text: e.target.value
         });
