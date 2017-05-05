@@ -1,4 +1,10 @@
 .widget {
-  min-width: 400px;
+  min-width: 320px;
   padding: 10px 0 10px 0;
 }
+.widget:not(:first-child) > div{
+  height: 455px;
+  overflow-y: auto;
+}
+
+

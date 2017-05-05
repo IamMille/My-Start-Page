@@ -34,7 +34,7 @@ class Game extends Component
           showExpandableButton={false}
       />
       <CardActions >
-        
+
         { !isGameStarted
           ? <RaisedButton label="Start game" onClick={this.handleStartgameClick.bind(this)} />
           : "" }
