@@ -22,8 +22,7 @@ class Info extends Component {
                 {topic: 'How to change theme', category: 'Styling', info: 'You simply click on the switch on the top right of the page. Your style will be remembered ' +
                 'if you are logged in'},
 
-                {topic: 'How to hide widgets', category: 'Styling', info: 'When you are logged in an additional icon is added to the widget on the top right. ' +
-                'Click on it to expose a new menu when you can choose the hide the widget.'},
+                {topic: 'Powered by', category: 'About', info: 'NewsAPI.org, Google and the Widgify team'},
                 
                 {topic: 'Anything else on you mind?', category: 'Contact', info: 'Do not hesitate to contact us at widgify@widgify.widgify if you have any questions' +
                 ' or ideas on how to improve this site.'}

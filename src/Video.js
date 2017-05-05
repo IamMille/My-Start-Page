@@ -6,7 +6,7 @@ import VideoDetail from './components/video_detail';
 import './App.css';
 const API_KEY = 'AIzaSyCQMSAf-4GdhWVd8YrSC43s-OskR0GzT98';
 import { Grid, Row, Col } from 'react-flexbox-grid';
-import {Card, CardActions, CardHeader, CardMedia} from 'material-ui/Card';
+import {Card, CardHeader, CardMedia} from 'material-ui/Card';
 
 
 class Video extends Component {
@@ -37,16 +37,14 @@ class Video extends Component {
         return (
             <Card>
                 <CardHeader title="Video"/>
-                <CardActions>
-                    <SearchBar onSearchTermChange={videoSearch} />
-                </CardActions>
                 <CardMedia style={{width:'95%', margin:'0 auto'}}>
                     <Grid>
                         <Row>
-                            <Col xs={8}>
+                            <SearchBar onSearchTermChange={videoSearch} />
+                            <Col xs={12} md={8}>
                                 <VideoDetail video={this.state.selectedVideo}/>
                             </Col>
-                            <Col xs={4}>
+                            <Col xs={12} md={4}>
                                 Search results:
                                 <VideoList onVideoSelect={selectedVideo=>this.setState({selectedVideo})} videos={this.state.videos}/>
                             </Col>
