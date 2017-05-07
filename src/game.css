@@ -9,11 +9,11 @@
 .selected {
   background-color: rgb(255, 64, 129);
 }
-
-.btnRemove {
-  font-size: 1.2em;
-  margin-top: 10px;
+.score {
+  font-size: 5em;
+  animation: fadein 3s;
 }
-body {
-  background-color: grey;
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }

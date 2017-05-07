@@ -54,12 +54,12 @@ class App extends Component {
 
     componentWillMount() {
         firebase.auth().onAuthStateChanged(function(user) {
-            console.log(user);
+            //console.log(user);
             if (user) {
-                console.log('user logged in');
+                //console.log('user logged in');
                 this.setState({uid: user.uid, username: user.displayName});
             } else {
-                console.log('no user logged in');
+                //console.log('no user logged in');
                 this.setState({uid: false, username: ''});
             }
         }.bind(this));
@@ -91,7 +91,7 @@ class App extends Component {
                             <TestData />
                         </Col>
                         <Col className="widget" xs={12}  md={6} lg={4}>
-                            <Game />
+                            <Game uid={this.state.uid} username={this.state.username} />
                         </Col>
                         <Col className="widget" xs={12}  md={6} lg={4}>
                             <TestData />

@@ -53,10 +53,10 @@ class Notepad extends Component {
                     <RaisedButton label="Do something" />
                 </CardActions>
                 <CardActions>
-                    {this.props.uid?<RaisedButton label="Inject random word" onTouchTap={this.props.uid?this.handleRandomWord:console.log('log in')} />:<RaisedButton label="log in to use the notepad" onTouchTap={this.props.popupAction}/>}
+                    {this.props.uid?<RaisedButton label="Inject random word" onTouchTap={this.props.uid?this.handleRandomWord:()=>{}} />:<RaisedButton label="log in to use the notepad" onTouchTap={this.props.popupAction}/>}
                 </CardActions>
                 <CardText>
-                    <TextField name='text' value={this.state.text} rows={11} rowsMax={11} fullWidth={true} multiLine={true} hintText={`what's on you mind ${this.props.uid?',': ' '} ${this.props.username}?`} onChange={this.props.uid?this.handleChange:console.log('log in')}/>
+                    <TextField name='text' value={this.state.text?this.state.text:''} rows={11} rowsMax={11} fullWidth={true} multiLine={true} hintText={`what's on you mind ${this.props.uid?',': ' '} ${this.props.username}?`} onChange={this.props.uid?this.handleChange:()=>{}}/>
                 </CardText>
             </Card>
         );
