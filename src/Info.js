@@ -11,19 +11,47 @@ class Info extends Component {
         super(props);
         this.state = {
             popup: false,
-            buttons: [{topic: 'How to sign up', category: 'Registration'},{topic: 'Make Widgify better', category: 'Charity'},{topic: 'How to change theme', category: 'Styling'},{topic: 'How to hide widgets', category: 'Styling'},{topic: 'Anything else on you mind?', category: 'Contact'}]
+            information: [
+                {topic: 'How to sign up', category: 'Registration', info: 'Click on the sign up button on the top right of the page. ' +
+                'Then you will prompted with a dialog that asks you to ' +
+                'log in with the wanted provider. Smooth.'},
+
+                {topic: 'Make Widgify better', category: 'Charity', info: 'We are a small team trying to make a living by making applications that fits your life style. ' +
+                'If you like our services we would appreciate donations so we could continue our development.'},
+
+                {topic: 'How to change theme', category: 'Styling', info: 'You simply click on the switch on the top right of the page. Your style will be remembered ' +
+                'if you are logged in'},
+
+                {topic: 'Powered by', category: 'About', info: 'NewsAPI.org, Google and the Widgify team'},
+                
+                {topic: 'Anything else on you mind?', category: 'Contact', info: 'Do not hesitate to contact us at widgify@widgify.widgify if you have any questions' +
+                ' or ideas on how to improve this site.'}
+                ],
+            currentInformation: ''
         }
     }
 
-    popupAction = (e) => {
-        this.setState({popup: !this.state.popup});
+    popupAction = (index) => {
+        let info;
+        switch(index){
+            case 0: info = this.state.information[index]; break;
+            case 1: info = this.state.information[index]; break;
+            case 2: info = this.state.information[index]; break;
+            case 3: info = this.state.information[index]; break;
+            default: info= this.state.information[index];
+        }
+        this.setState({currentInformation: info, popup: !this.state.popup});
+    };
+
+    close = () =>{
+        this.setState({popup: false})
     };
 
     render() {
-        let buttons = this.state.buttons.map((button, index)=>{return <ListItem key={`info${index}`} onTouchTap={this.popupAction} rightIcon={<ActionInfo />} primaryText={button.topic} secondaryText={button.category}/>});
+        let buttons = this.state.information.map((info, index)=>{return <ListItem key={`info${index}`} onTouchTap={()=>this.popupAction(index)} rightIcon={<ActionInfo />} primaryText={info.topic} secondaryText={info.category}/>});
         return (
             <Card>
-                <PopupInfo popup={this.state.popup} popupAction={this.popupAction}/>
+                <PopupInfo popup={this.state.popup} close={this.close} info={this.state.currentInformation}/>
                 <CardHeader title="Information"  actAsExpander={false} showExpandableButton={false}/>
                 <List>
                     {buttons}
@@ -36,8 +64,8 @@ class Info extends Component {
 class PopupInfo extends Component {
     render(){
         return(
-            <Dialog open={this.props.popup} titleStyle={{textAlign: 'center'}} actions={ <RaisedButton fullWidth={true}  label="Close" primary={true} onTouchTap={this.props.popupAction}/>} title="How to do that thing" >
-                <p>Turn it off and on again</p>
+            <Dialog open={this.props.popup} titleStyle={{textAlign: 'center'}} actions={ <RaisedButton fullWidth={true}  label="Close" primary={true} onTouchTap={this.props.close}/>} title={this.props.info.topic} >
+                {this.props.info.info}
             </Dialog>
         );
     }

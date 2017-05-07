@@ -16,7 +16,7 @@ class SearchBar extends Component {
 
     render(){
          return (
-             <TextField value={this.state.term} hintText="search for video" fullWidth={true} onChange={(event)=>this.onInputChange(event.target.value)}/>
+             <TextField floatingLabelText="search for video" value={this.state.term} hintText="ex. Miike Snow - Genghis Khan" fullWidth={true} onChange={(event)=>this.onInputChange(event.target.value)}/>
          );
     }
 }
