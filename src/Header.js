@@ -23,8 +23,8 @@ class Header extends Component {
         }
     };
     handleClick=()=>{
-      let value = this.state.search;
-        window.open("https://www.google.se/#q=" + value,"_blank");
+      let value = String(this.state.search);
+      window.open("https://www.google.se/search?q=" + value,"_blank");
     };
 
 

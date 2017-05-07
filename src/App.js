@@ -8,6 +8,7 @@ import Video from './Video'
 import News from './News'
 import TestData from './Test'
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import Container from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { Grid, Row, Col } from 'react-flexbox-grid';
@@ -15,21 +16,8 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import * as firebase from 'firebase';
-/*import {teal500, tealA200} from 'material-ui/styles/colors';
-
-const muiTheme = getMuiTheme({
-    palette: {
-        primary1Color: teal500,
-        accent1Color: tealA200,
-    },
-    raisedButton: {
-        color: teal500,
-
-    }
-});*/
 
 injectTapEventPlugin();
-
 
 class App extends Component {
     constructor(){
@@ -37,7 +25,8 @@ class App extends Component {
         this.state = {
             uid: false,
             authPopup: false,
-            username: ''
+            username: '',
+            darkTheme: false
         }
     }
     //handle auth
@@ -73,13 +62,12 @@ class App extends Component {
                 this.setState({uid: false, username: ''});
             }
         }.bind(this));
-
     }
 
     render() {
             return (
-            <Container muiTheme={getMuiTheme()}>
-                <Grid fluid>
+            <Container  muiTheme={getMuiTheme(this.state.darkTheme? darkBaseTheme: null)}>
+                <Grid style={{backgroundColor: this.state.darkTheme? 'rgb(60, 60, 60)': 'rgb(240, 240, 240)'}} fluid>
                     <Dialog open={this.state.authPopup} titleStyle={{textAlign: 'center'}} actions={ <RaisedButton fullWidth={true}  label="Close" primary={true} onTouchTap={this.popupAction}/>} title="Log in with one of the following providers" >
                         <FlatButton fullWidth={true} onTouchTap={this.handleLogin}>Github</FlatButton>
                         <FlatButton fullWidth={true} onTouchTap={this.handleLogin}>Google</FlatButton>
