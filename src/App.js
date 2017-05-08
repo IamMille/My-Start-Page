@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Header from './Header'
-import Notepad from './Notepad'
+import Note from './Note'
 import Info from './Info'
 import Game from './Game'
 import Video from './Video'
@@ -160,7 +160,7 @@ class App extends Component {
                             <Info darkTheme={this.state.darkTheme} changeTheme={this.changeTheme} deleteCurrentUser={this.deleteCurrentUser} uid={this.state.uid}/>
                         </Col>
                         <Col className="widget" xs={12}  md={6} lg={4}>
-                            <Notepad uid={this.state.uid} username={this.state.username} popupAction={this.popupAction}/>
+                            <Note uid={this.state.uid} username={this.state.username} popupAction={this.popupAction}/>
                         </Col>
                         <Col className="widget" xs={12}  md={6} lg={4}>
                             <Game />
