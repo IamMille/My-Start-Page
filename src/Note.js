@@ -49,10 +49,10 @@ class Note extends Component {
             <Card>
                 <CardHeader title="Make a note"  subtitle={`I will remember it for you`}/>
                 <CardActions>
-                    {this.props.uid?<RaisedButton label="Inject random word" onTouchTap={this.props.uid?this.handleRandomWord:console.log('Log in!')} />:<RaisedButton label="log in to use the note widget" onTouchTap={this.props.popupAction}/>}
+                    {this.props.uid?<RaisedButton label="Inject random word" onTouchTap={this.props.uid?this.handleRandomWord:null} />:<RaisedButton label="log in to use the note widget" onTouchTap={this.props.popupAction}/>}
                 </CardActions>
                 <CardText>
-                    <TextField name='text' value={this.state.text?this.state.text:''} rows={11} rowsMax={11} fullWidth={true} multiLine={true} hintText={`what's on your mind ${this.props.uid?',': ' '} ${this.props.username}?`} onChange={this.props.uid?this.handleChange:console.log('log in')}/>
+                    <TextField name='text' value={this.state.text?this.state.text:''} rows={11} rowsMax={11} fullWidth={true} multiLine={true} hintText={`what's on your mind ${this.props.uid?',': ' '} ${this.props.username}?`} onChange={this.props.uid?this.handleChange:null}/>
                 </CardText>
             </Card>
         );
