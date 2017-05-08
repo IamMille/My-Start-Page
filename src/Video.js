@@ -36,7 +36,7 @@ class Video extends Component {
 
         return (
             <Card>
-                <CardHeader title="Video"/>
+                <CardHeader title="YouTube Player"/>
                 <CardMedia style={{width:'95%', margin:'0 auto'}}>
                     <Grid>
                         <Row>

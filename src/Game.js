@@ -49,7 +49,7 @@ class Game extends Component
 
     return <Card>
       <CardHeader
-          title="Game Widget"
+          title="The Pin Game"
           subtitle={this.state.message}
           actAsExpander={false}
           showExpandableButton={false}

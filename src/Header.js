@@ -6,6 +6,7 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 
 
+
 class Header extends Component {
     constructor(){
         super();
@@ -24,14 +25,14 @@ class Header extends Component {
     };
     handleClick=()=>{
       let value = String(this.state.search);
-      window.open("https://www.google.se/search?q=" + value,"_blank");
+      window.open("https://www.google.se/search?q=" +  encodeURI(value),"_blank");
     };
 
 
     render() {
         return (
             <Card>
-                <AppBar title="Widgify"  showMenuIconButton={false} iconElementRight={this.props.uid? <FlatButton  label="Sign Out" onTouchTap={this.props.signOut}/>:<FlatButton  label="Log in" onTouchTap={this.props.popupAction}/>}/>
+                <AppBar title="Widgify"  showMenuIconButton={false}  iconElementRight={this.props.uid?<FlatButton  label="Sign Out" onTouchTap={this.props.signOut}/>:<FlatButton  label="Log in" onTouchTap={this.props.popupAction}/>}/>
                 <CardText style={{justifyContent: 'space-around', display: 'flex'}}>
                     <TextField name='search' type="text" fullWidth={true}  onChange={this.handleChange} onKeyPress={this.handleKeyPress} hintText={`search the web`}/>
                     <FlatButton label='search' style={{width:'28%', margin:'0 1% 0 1%'}} onTouchTap={this.handleClick}/>
