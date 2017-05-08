@@ -26,7 +26,7 @@ class App extends Component {
             uid: false,
             authPopup: false,
             username: '',
-            darkTheme: false
+            darkTheme: true
         }
     }
     //handle auth
