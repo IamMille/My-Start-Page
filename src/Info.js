@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
-import {Card, CardHeader} from 'material-ui/Card';
+import {Card ,CardHeader} from 'material-ui/Card';
 import Dialog from 'material-ui/Dialog';
 import RaisedButton from 'material-ui/RaisedButton';
 import {List, ListItem} from 'material-ui/List';
 import ActionInfo from 'material-ui/svg-icons/action/info';
+import Sun from 'material-ui/svg-icons/image/wb-sunny';
+import Moon from 'material-ui/svg-icons/image/brightness-2';
+import Toggle from 'material-ui/Toggle';
 
 class Info extends Component {
     constructor(props){
@@ -12,34 +15,27 @@ class Info extends Component {
         this.state = {
             popup: false,
             information: [
-                {topic: 'How to sign up', category: 'Registration', info: 'Click on the sign up button on the top right of the page. ' +
+                {topic: 'How to sign up', category: 'Account', info: 'Click on the sign up button on the top right of the page. ' +
                 'Then you will prompted with a dialog that asks you to ' +
                 'log in with the wanted provider. Smooth.'},
 
-                {topic: 'Make Widgify better', category: 'Charity', info: 'We are a small team trying to make a living by making applications that fits your life style. ' +
-                'If you like our services we would appreciate donations so we could continue our development.'},
-
-                {topic: 'How to change theme', category: 'Styling', info: 'You simply click on the switch on the top right of the page. Your style will be remembered ' +
-                'if you are logged in'},
+                {topic: 'How to change theme', category: 'Styling', info: 'In the information and settings widget you can toggle between light and dark theme. The ' +
+                'settings will be saved and remembered on your user account.'},
 
                 {topic: 'Powered by', category: 'About', info: 'NewsAPI.org, Google and the Widgify team'},
                 
                 {topic: 'Anything else on you mind?', category: 'Contact', info: 'Do not hesitate to contact us at widgify@widgify.widgify if you have any questions' +
-                ' or ideas on how to improve this site.'}
-                ],
+                ' or ideas on how to improve this site.'},
+
+                {topic: 'Delete your account', category: 'Account', info: 'If you are logged in, you will have the option to delete your account on this page.', deleteUser: true}
+            ],
             currentInformation: ''
         }
     }
 
     popupAction = (index) => {
         let info;
-        switch(index){
-            case 0: info = this.state.information[index]; break;
-            case 1: info = this.state.information[index]; break;
-            case 2: info = this.state.information[index]; break;
-            case 3: info = this.state.information[index]; break;
-            default: info= this.state.information[index];
-        }
+        info = this.state.information[index];
         this.setState({currentInformation: info, popup: !this.state.popup});
     };
 
@@ -47,13 +43,15 @@ class Info extends Component {
         this.setState({popup: false})
     };
 
+
     render() {
         let buttons = this.state.information.map((info, index)=>{return <ListItem key={`info${index}`} onTouchTap={()=>this.popupAction(index)} rightIcon={<ActionInfo />} primaryText={info.topic} secondaryText={info.category}/>});
         return (
             <Card>
-                <PopupInfo popup={this.state.popup} close={this.close} info={this.state.currentInformation}/>
-                <CardHeader title="Information"  actAsExpander={false} showExpandableButton={false}/>
+                <PopupInfo popup={this.state.popup} close={this.close}  info={this.state.currentInformation} deleteCurrentUser={this.props.deleteCurrentUser} uid={this.props.uid}/>
+                <CardHeader title="Information and settings"   actAsExpander={false} showExpandableButton={false} />
                 <List>
+                    <ListItem><Toggle toggled={!!this.props.darkTheme} onToggle={this.props.changeTheme} label={this.props.darkTheme?<Moon/>:<Sun/>}/></ListItem>
                     {buttons}
                 </List>
             </Card>
@@ -62,10 +60,16 @@ class Info extends Component {
 }
 
 class PopupInfo extends Component {
+    onClick=()=>{
+        this.props.deleteCurrentUser();
+        this.props.close();
+    };
+
     render(){
         return(
             <Dialog open={this.props.popup} titleStyle={{textAlign: 'center'}} actions={ <RaisedButton fullWidth={true}  label="Close" primary={true} onTouchTap={this.props.close}/>} title={this.props.info.topic} >
                 {this.props.info.info}
+                {this.props.info.deleteUser && this.props.uid?<RaisedButton backgroundColor="#D50000" labelStyle={{color: 'white'}} style={{marginTop: 30}} fullWidth={true} onTouchTap={this.onClick} label="Delete my account"/>:null}
             </Dialog>
         );
     }

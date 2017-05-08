@@ -37,7 +37,6 @@ class News extends Component {
         fetch('https://newsapi.org/v1/sources').then((res)=>{return res.json();}).then((data)=>{
             let newProviderNames = [],
             newProviderIds = [];
-            console.log(data.sources);
             data.sources.forEach(i=>{newProviderNames.push(i.name); newProviderIds.push(i.id)});
             this.setState({providerListNames: newProviderNames, providerListId: newProviderIds});
             this.getNews();
@@ -48,7 +47,7 @@ class News extends Component {
     render(){
         return (
             <Card>
-                <CardHeader title="News" />
+                <CardHeader title="Top News" />
                 <CardActions>
                     <AutoComplete
                         fullWidth={true}
@@ -79,8 +78,6 @@ class DisplayNews extends Component {
             </CardTitle>
             </Col>
             }): <p>Not currently available. Try another one.</p>;
-        console.log(news);
-
         return(
             <Grid fluid style={{overflowY: 'auto', height: 300}}>
                 <Row bottom='xs'>
