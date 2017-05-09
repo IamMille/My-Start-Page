@@ -90,7 +90,9 @@ class Game extends Component
 
         { !isGameStarted && gameScore
           ? <div className="score">
-              {gameScore.player}-{gameScore.cpu}
+
+              <span style={{color:"green"}}>{gameScore.player}</span>
+              -<span style={{color:"red"}}>{gameScore.cpu}</span>
             </div>
           : ""
         }

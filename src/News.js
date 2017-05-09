@@ -30,7 +30,11 @@ class News extends Component {
                 selectedProvider: this.state.selectedProvider
             });
         }
-        let url = new Request(`https://newsapi.org/v1/articles?source=${this.state.selectedProvider}&sortBy=${this.state.selectedSortBy}&apiKey=${API_KEY}`);
+
+        let myInit = { method: 'GET',
+            mode: 'cors',
+            cache: 'default' };
+        let url = new Request(`https://newsapi.org/v1/articles?source=${this.state.selectedProvider}&sortBy=${this.state.selectedSortBy}&apiKey=${API_KEY}`, myInit);
         fetch(url).then((res)=>{
             return res.json();
         }).then((data)=>{
@@ -41,7 +45,6 @@ class News extends Component {
 
     getLastSelectedNewsSite = () => {
         firebase.database().ref(`users/${this.props.uid}/news`).child('selectedProvider').on('value', s=>{
-            console.log(s.val());
             this.setState({selectedProvider: s.val()});
             this.getNews();
         });
@@ -90,14 +93,15 @@ class DisplayNews extends Component {
     render(){
         const news = this.props.news ? this.props.news:  false,
             media = this.props.news ? news.map((article, index)=>{
-            return <Col style={{paddingTop: 10}} xs={12} lg={6} key={`arictle${index}`}>
-            <CardMedia>
-                <img style={article.urlToImage? {height: '100%'}: {height:270}} src={article.urlToImage} alt={article.description}/>
-            </CardMedia>
-            <CardTitle  title={article.title} subtitle={article.publishedAt} >
-                <RaisedButton style={{marginTop: 10}} href={article.url} target="_blank" fullWidth={true} label="Read More"/>
-            </CardTitle>
-            </Col>
+
+                return <Col style={{paddingTop: 10}} xs={12} lg={6} key={`arictle${index}`}>
+                    <CardMedia>
+                        <img style={article.urlToImage? {height: '100%'}: {height:270}} src={article.urlToImage} alt={article.description}/>
+                    </CardMedia>
+                    <CardTitle  title={article.title} subtitle={article.publishedAt} >
+                        <RaisedButton style={{marginTop: 10}} href={article.url} target="_blank" fullWidth={true} label="Read More"/>
+                    </CardTitle>
+                </Col>
             }): <p>Not currently available. Try another one.</p>;
         return(
             <Grid fluid style={{overflowY: 'auto', height: 300}}>
