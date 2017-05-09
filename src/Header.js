@@ -25,7 +25,7 @@ class Header extends Component {
     };
     handleClick=()=>{
       let value = String(this.state.search);
-      window.open("https://www.google.se/search?q=" +  encodeURI(value),"_blank");
+      window.open("https://www.google.se/search?q=" + encodeURIComponent(value), "_blank");
     };
 
 
