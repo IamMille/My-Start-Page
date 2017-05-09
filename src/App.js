@@ -163,7 +163,7 @@ class App extends Component {
                             <Note uid={this.state.uid} username={this.state.username} popupAction={this.popupAction}/>
                         </Col>
                         <Col className="widget" xs={12}  md={6} lg={4}>
-                            <Game />
+                            <Game uid={this.state.uid} username={this.state.username}/>
                         </Col>
                         <Col className="widget" xs={12}  md={6} lg={4}>
                             <TestData />
