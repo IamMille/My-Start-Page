@@ -97,7 +97,7 @@ class App extends Component {
                     this.setState({darkTheme: s.val()});
                 });
             } else {
-                this.setState({uid: false, username: ''});
+                this.setState({uid: false, username: '', darkTheme: false});
             }
         }.bind(this));
     }
