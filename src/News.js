@@ -4,6 +4,8 @@ import {Card, CardMedia, CardTitle, CardActions, CardHeader} from 'material-ui/C
 import RaisedButton from 'material-ui/RaisedButton';
 import AutoComplete from 'material-ui/AutoComplete';
 import { Grid, Row, Col } from 'react-flexbox-grid';
+import * as firebase from 'firebase';
+
 
 
 
@@ -23,31 +25,50 @@ class News extends Component {
     }
 
     getNews = () => {
+        if(this.props.uid){
+            firebase.database().ref(`users/${this.props.uid}/news`).update({
+                selectedProvider: this.state.selectedProvider
+            });
+        }
         let url = new Request(`https://newsapi.org/v1/articles?source=${this.state.selectedProvider}&sortBy=${this.state.selectedSortBy}&apiKey=${API_KEY}`);
         fetch(url).then((res)=>{
             return res.json();
         }).then((data)=>{
             this.setState({currentResponse:data.articles});
-        })
+        });
     };
 
 
+    getLastSelectedNewsSite = () => {
+        firebase.database().ref(`users/${this.props.uid}/news`).child('selectedProvider').on('value', s=>{
+            console.log(s.val());
+            this.setState({selectedProvider: s.val()});
+            this.getNews();
+        });
+    };
 
     componentWillMount(){
+        firebase.auth().onAuthStateChanged((user)=> {
+            if (user) this.getLastSelectedNewsSite();
+        });
+
         fetch('https://newsapi.org/v1/sources').then((res)=>{return res.json();}).then((data)=>{
             let newProviderNames = [],
             newProviderIds = [];
             data.sources.forEach(i=>{newProviderNames.push(i.name); newProviderIds.push(i.id)});
             this.setState({providerListNames: newProviderNames, providerListId: newProviderIds});
             this.getNews();
+
         });
     }
+
+
 
 
     render(){
         return (
             <Card>
-                <CardHeader title="Top News" />
+                <CardHeader title={`Top news ${this.state.currentResponse? `for ${this.state.selectedProvider.replace(/-/g, ' ')}` : ''}`}/>
                 <CardActions>
                     <AutoComplete
                         fullWidth={true}
