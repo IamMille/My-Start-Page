@@ -153,6 +153,7 @@ class App extends Component {
                         <Col className="widget" xs={12}>
                             <Header popupAction={this.popupAction} signOut={this.handleSignOut} uid={this.state.uid}  />
                         </Col>
+
                         <Col className="widget" xs={12}  md={6} lg={4}>
                             <Note uid={this.state.uid} username={this.state.username} popupAction={this.popupAction}/>
                         </Col>

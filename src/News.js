@@ -30,7 +30,11 @@ class News extends Component {
                 selectedProvider: this.state.selectedProvider
             });
         }
-        let url = new Request(`https://newsapi.org/v1/articles?source=${this.state.selectedProvider}&sortBy=${this.state.selectedSortBy}&apiKey=${API_KEY}`);
+
+        let myInit = { method: 'GET',
+            mode: 'cors',
+            cache: 'default' };
+        let url = new Request(`https://newsapi.org/v1/articles?source=${this.state.selectedProvider}&sortBy=${this.state.selectedSortBy}&apiKey=${API_KEY}`, myInit);
         fetch(url).then((res)=>{
             return res.json();
         }).then((data)=>{
@@ -53,7 +57,7 @@ class News extends Component {
 
         fetch('https://newsapi.org/v1/sources').then((res)=>{return res.json();}).then((data)=>{
             let newProviderNames = [],
-                newProviderIds = [];
+            newProviderIds = [];
             data.sources.forEach(i=>{newProviderNames.push(i.name); newProviderIds.push(i.id)});
             this.setState({providerListNames: newProviderNames, providerListId: newProviderIds});
             this.getNews();
@@ -89,6 +93,7 @@ class DisplayNews extends Component {
     render(){
         const news = this.props.news ? this.props.news:  false,
             media = this.props.news ? news.map((article, index)=>{
+
                 return <Col style={{paddingTop: 10}} xs={12} lg={6} key={`arictle${index}`}>
                     <CardMedia>
                         <img style={article.urlToImage? {height: '100%'}: {height:270}} src={article.urlToImage} alt={article.description}/>
