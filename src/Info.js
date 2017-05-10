@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import {Card ,CardHeader} from 'material-ui/Card';
+import {Card ,CardTitle} from 'material-ui/Card';
 import Dialog from 'material-ui/Dialog';
 import RaisedButton from 'material-ui/RaisedButton';
 import {List, ListItem} from 'material-ui/List';
@@ -49,7 +49,7 @@ class Info extends Component {
         return (
             <Card>
                 <PopupInfo popup={this.state.popup} close={this.close}  info={this.state.currentInformation} deleteCurrentUser={this.props.deleteCurrentUser} uid={this.props.uid}/>
-                <CardHeader title="Information and settings"   actAsExpander={false} showExpandableButton={false} />
+                <CardTitle title="Information and settings"   actAsExpander={false} showExpandableButton={false} />
                 <List>
                     {this.props.uid?<ListItem><Toggle toggled={!!this.props.darkTheme} onToggle={this.props.changeTheme} label={this.props.darkTheme?<Moon/>:<Sun/>}/></ListItem>: <ListItem>Log in to use additional features</ListItem>}
                     {buttons}
