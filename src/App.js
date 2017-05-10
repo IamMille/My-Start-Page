@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Bookmarks from './Bookmarks'
+import Note from './Note'
 import Header from './Header'
 import Info from './Info'
 import Game from './Game'
@@ -158,7 +159,7 @@ class App extends Component {
                           <Info darkTheme={this.state.darkTheme} changeTheme={this.changeTheme} deleteCurrentUser={this.deleteCurrentUser} uid={this.state.uid}/>
                         </Col>
                         <Col className="widget" xs={12}  md={6} lg={4}>
-                            <Game uid={this.state.uid} username={this.state.username} />
+                            <Note uid={this.state.uid} username={this.state.username} />
                         </Col>
                         <Col className="widget" xs={12}  md={6} lg={4}>
                           <Bookmarks uid={this.state.uid} username={this.state.username} popupAction={this.popupAction}/>
@@ -167,7 +168,7 @@ class App extends Component {
                             <News uid={this.state.uid} username={this.state.username}/>
                         </Col>
                         <Col className="widget" xs={12}  md={6} lg={4}>
-                            <TestData />
+                            <Game uid={this.state.uid} username={this.state.username} />
                         </Col>
                         <Col className="widget" xs={12}  md={6} lg={4}>
                             <TestData />
