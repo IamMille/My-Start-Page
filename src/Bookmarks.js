@@ -14,7 +14,8 @@ import * as firebase from 'firebase';
 
 class Bookmarks extends React.Component
 {
-  constructor() {
+  constructor()
+  {
     super(...arguments);
     this.state = {
       message: "Why not save some bookmarks?",
@@ -24,22 +25,42 @@ class Bookmarks extends React.Component
     }
   }
 
-  componentWillMount() {
-
-    firebase.auth().onAuthStateChanged((user)=>
+  componentWillMount()
+  {
+    firebase.auth().onAuthStateChanged((user) =>
     {
       if (!user) return;
 
-      firebase.database().ref(`users/${user.uid}/bookmarks`).child("items").on('value', snap => {
-        var bookmarks = snap.val();
-        this.setState({bookmarks: bookmarks});
+      const rootRef = firebase.database().ref(`users/${user.uid}/bookmarks`);
+
+      rootRef.child("hasBeenUsed").once('value', snap =>
+      {
+        if (snap.exists()) return;
+
+        var newKey = () => rootRef.child('items').push().key;
+        var updates = {
+          [newKey()]: {url: "http://www.facebook.com"},
+          [newKey()]: {url: "http://firebase.google.com"},
+          [newKey()]: {url: "http://www.github.com"},
+          [newKey()]: {url: "http://stackoverflow.com"}
+        };
+
+        rootRef.set({ hasBeenUsed: true });
+        rootRef.child("items").update(updates);
+      });
+
+      rootRef.child("items").off('value');
+      rootRef.child("items").on('value', snap =>
+      {
+        this.setState({bookmarks: snap.val() || {}});
       });
 
     });
 
   }
 
-  handleAdd(e) {
+  handleAdd(e)
+  {
     const {uid} = this.props
     const {userInput, userInputError} = this.state;
 
@@ -56,10 +77,10 @@ class Bookmarks extends React.Component
     firebase.database()
       .ref(`users/${uid}/bookmarks`)
       .child("items").push(newItem);
-
   }
 
-  handleChange(e) {
+  handleChange(e)
+  {
     const val = e.target.value;
     const validateURL = /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i;
 
@@ -136,17 +157,20 @@ class Bookmarks extends React.Component
       </CardText>
     </Card>;
   }
+
   handleDelete(id)
   {
     const {uid} = this.props;
     if (!uid) return;
+    console.log(id);
     firebase.database()
       .ref(`users/${uid}/bookmarks/items`)
       .child(id).set(null);
   }
 }
 
-class Favicon extends React.Component {
+class Favicon extends React.Component
+{
   render() {
     const {url} = this.props;
     const style = {
@@ -162,4 +186,5 @@ class Favicon extends React.Component {
     />
   }
 }
+
 export default Bookmarks;
