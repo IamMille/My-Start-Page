@@ -5,7 +5,7 @@ import Dialog from 'material-ui/Dialog';
 import * as firebase from 'firebase';
 import './game.css';
 
-const GAMESIZE = 5;
+const GAMESIZE = 20;
 
 class Game extends Component
 {
@@ -49,7 +49,7 @@ class Game extends Component
 
     return <Card>
       <CardHeader
-          title="Game Widget"
+          title="The Pin Game"
           subtitle={this.state.message}
           actAsExpander={false}
           showExpandableButton={false}
@@ -90,7 +90,9 @@ class Game extends Component
 
         { !isGameStarted && gameScore
           ? <div className="score">
-              {gameScore.player}-{gameScore.cpu}
+
+              <span style={{color:"green"}}>{gameScore.player}</span>
+              -<span style={{color:"red"}}>{gameScore.cpu}</span>
             </div>
           : ""
         }
