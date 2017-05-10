@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import './App.css';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
@@ -6,7 +7,7 @@ import TextField from 'material-ui/TextField';
 import * as firebase from 'firebase';
 const API_KEY = 'AIzaSyBT6jRu5WgEHPDx8FSOpGKvcvvv3V0qaRk';
 
-class Note extends React.Component {
+class Note extends Component {
     constructor(){
         super()
         this.state = {
@@ -18,14 +19,15 @@ class Note extends React.Component {
 /** firebase, här lagras och hanteras textändringen som gjorts **/
     
     handleChange=(e)=>{
-        this.setState({notes: e.target.value});
+        this.setState({notes: e.target.name});
         firebase.database().ref(`users/${this.props.uid}/notes`).update({
            text: e.target.value
         });
     };
 
 
-/** user id **/
+
+/** updateNotes till user id **/
 
    componentWillMount() {
         firebase.auth().onAuthStateChanged((user)=> {
@@ -47,57 +49,34 @@ class Note extends React.Component {
         return <Card>
             <CardHeader title="Note" subtitle={`Make a note`}/>
             
-            <TextField
-              hintText="MultiLine with rows: 2 and rowsMax: 4"
-              multiLine={true}
-              rows={2}
-              rowsMax={6}
-                value={this.state.text}
-                onChange={this.handleChange}
-            />
+            
+            
+            /*<CardText>
+                    <TextField name='text' value={this.state.text?this.state.text:''} rows={11} rowsMax={11} fullWidth={true} multiLine={true} hintText={`what's on your mind ${this.props.uid?',': ' '} ${this.props.username}?`} onChange={this.props.uid?this.handleChange:null}/>
+            </CardText>*/
+            
+           
+            
         </Card>
     }
-}
 
+
+}
 
 
 export default Note;
 
 
 
-/*import React, { Component } from 'react';
-import './notepad.css';
-//import App from './App';
-//import ReactDOM from 'react-dom';
-import TextField from 'material-ui/TextField';
-import Input from 'react-toolbox/lib/input';
-//import MarkdownTextarea from 'react-markdown-textarea';
-
-  
-class Notepad extends React.Component {
-  state = {multiline: ''};
-
-  handleChange = (name, value) => {
-    this.setState({...this.state, [name]: value});
-  };
-
-  render () {
-    return (
-      <section>
-        
-        
-        <Input type='text' multiline label='Multiline' maxLength={20} value={this.state.multiline} onChange={this.handleChange.bind(this, 'multiline')} />
-
-      </section>
-    );
-  }
-}
 
 
 
 
 
-export default Notepad;*/
 
- 
-/*<div class="react-markdown-textarea__textarea-wrapper" data-reactid=".0.v.1"><textarea class="react-markdown-textarea__textarea" style="display: block; resize: none; overflow: hidden; height: 169px;" rows="6" data-reactid=".0.v.1.0">jkkkk</textarea><button class="react-markdown-textarea__save-button" data-reactid=".0.v.1.1">Save</button></div>*/
+
+
+
+
+
+
