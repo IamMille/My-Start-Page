@@ -1,18 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import {List, ListItem} from 'material-ui/List';
-import Divider from 'material-ui/Divider';
-import ActionGrade from 'material-ui/svg-icons/action/grade';
-import Avatar from 'material-ui/Avatar';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
-import DropDownMenu from 'material-ui/DropDownMenu';
 import Delete from 'material-ui/svg-icons/action/delete';
 
 import * as firebase from 'firebase';
@@ -38,9 +32,7 @@ class Bookmarks extends React.Component
 
       firebase.database().ref(`users/${user.uid}/bookmarks`).child("items").on('value', snap => {
         var bookmarks = snap.val();
-        var numItems = Object.keys(bookmarks).length;
         this.setState({bookmarks: bookmarks});
-        console.log("componentWillMount", bookmarks, Object.keys(bookmarks).length);
       });
 
     });
@@ -49,13 +41,11 @@ class Bookmarks extends React.Component
 
   handleAdd(e) {
     const {uid} = this.props
-    const {userInput, userInputError, bookmarks} = this.state;
+    const {userInput, userInputError} = this.state;
 
     if (!uid) return;
     if (!userInput) return;
     if (userInputError) return;
-
-    var fixedTitle = userInput.replace(/^https?:\/\/(?:www\.)?/i, "");
 
     var newItem = {
       url: userInput,
@@ -63,7 +53,7 @@ class Bookmarks extends React.Component
       timestamp: firebase.database.ServerValue.TIMESTAMP
     };
 
-    var newKey = firebase.database()
+    firebase.database()
       .ref(`users/${uid}/bookmarks`)
       .child("items").push(newItem);
 
@@ -130,7 +120,7 @@ class Bookmarks extends React.Component
               const title = bookmarks[k].title
                             ? bookmarks[k].title
                             : bookmarks[k].url.replace(/^https?:\/\/(?:www\.)?/i, "");
-                            
+
               return <ListItem key={k}
                 insetChildren={true}
                 style={{overflow:"hidden"}}
@@ -146,19 +136,13 @@ class Bookmarks extends React.Component
       </CardText>
     </Card>;
   }
-  handleDelete(id) {
-
+  handleDelete(id)
+  {
     const {uid} = this.props;
-    //if (!uid) return;
+    if (!uid) return;
     firebase.database()
       .ref(`users/${uid}/bookmarks/items`)
       .child(id).set(null);
-  }
-}
-
-class BookmarkItem extends React.Component {
-  render() {
-
   }
 }
 
