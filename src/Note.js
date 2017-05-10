@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import {Card, CardActions, CardTitle, CardText} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import * as firebase from 'firebase';
@@ -47,12 +47,12 @@ class Note extends Component {
     render() {
         return (
             <Card>
-                <CardHeader title="Make a note"  subtitle={`I will remember it for you`}/>
+                <CardTitle title="Make a note"  subtitle={`I will remember it for you`}/>
                 <CardActions>
                     {this.props.uid?<RaisedButton label="Inject random word" onTouchTap={this.props.uid?this.handleRandomWord:null} />:<RaisedButton label="log in to use the note widget" onTouchTap={this.props.popupAction}/>}
                 </CardActions>
                 <CardText>
-                    <TextField name='text' value={this.state.text?this.state.text:''} rows={11} rowsMax={11} fullWidth={true} multiLine={true} hintText={`what's on your mind ${this.props.uid?',': ' '} ${this.props.username}?`} onChange={this.props.uid?this.handleChange:null}/>
+                    <TextField name='text' value={this.state.text?this.state.text:''} rows={10} rowsMax={10} fullWidth={true} multiLine={true} hintText={`what's on your mind ${this.props.uid?',': ' '} ${this.props.username}?`} onChange={this.props.uid?this.handleChange:null}/>
                 </CardText>
             </Card>
         );

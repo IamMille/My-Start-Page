@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import {Card, CardMedia, CardTitle, CardActions, CardHeader} from 'material-ui/Card';
+import {Card, CardMedia, CardTitle, CardActions} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import AutoComplete from 'material-ui/AutoComplete';
 import { Grid, Row, Col } from 'react-flexbox-grid';
@@ -31,14 +31,13 @@ class News extends Component {
             });
         }
 
-        let myInit = { method: 'GET',
-            mode: 'cors',
-            cache: 'default' };
-        let url = new Request(`https://newsapi.org/v1/articles?source=${this.state.selectedProvider}&sortBy=${this.state.selectedSortBy}&apiKey=${API_KEY}`, myInit);
+        let url = new Request(`https://newsapi.org/v1/articles?source=${this.state.selectedProvider}&sortBy=${this.state.selectedSortBy}&apiKey=${API_KEY}`, { method: 'GET', mode: 'cors', cache: 'default' });
         fetch(url).then((res)=>{
-            return res.json();
+            if(res.ok)return res.json();
         }).then((data)=>{
             this.setState({currentResponse:data.articles});
+        }).catch(function(error) {
+            console.error(error.message);
         });
     };
 
@@ -57,7 +56,7 @@ class News extends Component {
 
         fetch('https://newsapi.org/v1/sources').then((res)=>{return res.json();}).then((data)=>{
             let newProviderNames = [],
-            newProviderIds = [];
+                newProviderIds = [];
             data.sources.forEach(i=>{newProviderNames.push(i.name); newProviderIds.push(i.id)});
             this.setState({providerListNames: newProviderNames, providerListId: newProviderIds});
             this.getNews();
@@ -71,7 +70,7 @@ class News extends Component {
     render(){
         return (
             <Card>
-                <CardHeader title={`Top news ${this.state.currentResponse? `for ${this.state.selectedProvider.replace(/-/g, ' ')}` : ''}`}/>
+                <CardTitle title={`Top news ${this.state.selectedProvider? `for ${this.state.selectedProvider.replace(/-/g, ' ')}` : ''}`}/>
                 <CardActions>
                     <AutoComplete
                         fullWidth={true}
@@ -104,7 +103,7 @@ class DisplayNews extends Component {
                 </Col>
             }): <p>Not currently available. Try another one.</p>;
         return(
-            <Grid fluid style={{overflowY: 'auto', height: 300}}>
+            <Grid fluid style={{overflowY: 'auto', height: 290}}>
                 <Row bottom='xs'>
                     {media}
                 </Row>

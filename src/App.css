@@ -2,7 +2,7 @@
   min-width: 320px;
   padding: 10px 0 10px 0;
 }
-.widget:not(:first-child) > div{
+.widget:not(:first-child):not(:last-child) > div{
   height: 455px;
   overflow-y: auto;
 }

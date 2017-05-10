@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import {Card, CardActions, CardTitle, CardText} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import {List, ListItem} from 'material-ui/List';
@@ -99,7 +99,7 @@ class Bookmarks extends React.Component
     const {userInput, userInputError, bookmarks} = this.state;
 
     return <Card>
-      <CardHeader
+      <CardTitle
           title="Bookmarks"
           subtitle={this.state.message}
       >
@@ -111,7 +111,7 @@ class Bookmarks extends React.Component
           <MenuItem primaryText="Order by name" />
           <MenuItem primaryText="Order by added" />
         </IconMenu>
-    </CardHeader>
+    </CardTitle>
     <CardActions>
       <List>
         <ListItem>

@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
-import Bookmarks from './Bookmarks'
-import Note from './Note'
-import Header from './Header'
-import Info from './Info'
-import Game from './Game'
-import Video from './Video'
-import News from './News'
-import TestData from './Test'
+import Bookmarks from './Bookmarks';
+import Note from './Note';
+import Header from './Header';
+import Footer from './Footer';
+import Info from './Info';
+import Todo from './TodoApp';
+import Game from './Game';
+import Video from './Video';
+import News from './News';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Container from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -171,10 +172,13 @@ class App extends Component {
                             <Game uid={this.state.uid} username={this.state.username} />
                         </Col>
                         <Col className="widget" xs={12}  md={6} lg={4}>
-                            <TestData />
+                            <Todo />
                         </Col>
                         <Col className="widget" xs={12}  md={12} lg={8}>
                             <Video />
+                        </Col>
+                        <Col className="widget" xs={12}>
+                            <Footer darkTheme={this.state.darkTheme}/>
                         </Col>
                     </Row>
                 </Grid>

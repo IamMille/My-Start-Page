@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import {Card, CardActions, CardTitle, CardText} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
 import * as firebase from 'firebase';
@@ -48,7 +48,7 @@ class Game extends Component
     const {isGameStarted, isGameOver, isUserTurn, pins, numSelectedPins, gameScore} = this.state;
 
     return <Card>
-      <CardHeader
+      <CardTitle
           title="The Pin Game"
           subtitle={this.state.message}
           actAsExpander={false}
