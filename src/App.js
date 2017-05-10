@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
 import Header from './Header'
+import Footer from './Footer'
 import Note from './Note'
 import Info from './Info'
 import Game from './Game'
+import Todo from './TodoApp'
 import Video from './Video'
 import News from './News'
 import TestData from './Test'
@@ -167,13 +169,16 @@ class App extends Component {
                             <News uid={this.state.uid} username={this.state.username}/>
                         </Col>
                         <Col className="widget" xs={12}  md={6} lg={4}>
-                            <TestData />
+                            <Todo uid={this.state.uid}/>
                         </Col>
                         <Col className="widget" xs={12}  md={6} lg={4}>
                             <TestData />
                         </Col>
                         <Col className="widget" xs={12}  md={12} lg={8}>
                             <Video />
+                        </Col>
+                        <Col className="widget" xs={12}>
+                            <Footer darkTheme={this.state.darkTheme}/>
                         </Col>
                     </Row>
                 </Grid>

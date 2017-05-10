@@ -31,14 +31,13 @@ class News extends Component {
             });
         }
 
-        let myInit = { method: 'GET',
-            mode: 'cors',
-            cache: 'default' };
-        let url = new Request(`https://newsapi.org/v1/articles?source=${this.state.selectedProvider}&sortBy=${this.state.selectedSortBy}&apiKey=${API_KEY}`, myInit);
+        let url = new Request(`https://newsapi.org/v1/articles?source=${this.state.selectedProvider}&sortBy=${this.state.selectedSortBy}&apiKey=${API_KEY}`, { method: 'GET', mode: 'cors', cache: 'default' });
         fetch(url).then((res)=>{
-            return res.json();
+            if(res.ok)return res.json();
         }).then((data)=>{
             this.setState({currentResponse:data.articles});
+        }).catch(function(error) {
+            console.error(error.message);
         });
     };
 
@@ -71,7 +70,7 @@ class News extends Component {
     render(){
         return (
             <Card>
-                <CardHeader title={`Top news ${this.state.currentResponse? `for ${this.state.selectedProvider.replace(/-/g, ' ')}` : ''}`}/>
+                <CardHeader title={`Top news ${this.state.selectedProvider? `for ${this.state.selectedProvider.replace(/-/g, ' ')}` : ''}`}/>
                 <CardActions>
                     <AutoComplete
                         fullWidth={true}

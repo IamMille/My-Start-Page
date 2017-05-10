@@ -19,7 +19,7 @@ class Info extends Component {
                 'Then you will prompted with a dialog that asks you to ' +
                 'log in with the wanted provider. Smooth.'},
 
-                {topic: 'How to change theme', category: 'Styling', info: 'In the information and settings widget you can toggle between light and dark theme. The ' +
+                {topic: 'How to change theme', category: 'Styling', info: 'In the information and settings widget you can toggle between light and dark theme (must be logged in). The ' +
                 'settings will be saved and remembered on your user account.'},
 
                 {topic: 'Powered by', category: 'About', info: 'NewsAPI.org, Google and the Widgify team'},
