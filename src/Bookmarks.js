@@ -113,26 +113,19 @@ class Bookmarks extends React.Component
     }
 
     return (<Card>
-      <CardHeader
-        title="Bookmarks"
-        subtitle={this.state.message}
-        style={{paddingBottom:"4px"}}
-      >
+      <CardTitle title="Bookmarks">
       <IconMenu
         iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
         anchorOrigin={{horizontal: 'right', vertical: 'top'}}
         targetOrigin={{horizontal: 'right', vertical: 'top'}}
         style={{position:"absolute", top:3, right:4}}
       >
-        <MenuItem primaryText={userSortOrder === "name" ? <b>Sort by name</b> : "Sort by name" } onClick={() => this.setState({userSortOrder:"name"})} />
-        <MenuItem primaryText={userSortOrder === "added" ? <b>Sort by added</b> : "Sort by added" } onClick={() => this.setState({userSortOrder:"added"})} />
+        <MenuItem primaryText={userSortOrder === "name" ? <b>Sort by name</b> : "Sort by name" } onTouchTap={() => this.setState({userSortOrder:"name"})} />
+        <MenuItem primaryText={userSortOrder === "added" ? <b>Sort by added</b> : "Sort by added" } onTouchTap={() => this.setState({userSortOrder:"added"})} />
       </IconMenu>
-    </CardHeader>
+    </CardTitle>
 
-    <CardActions style={{paddingTop:0, paddingBottom:0}}>
-      <RaisedButton label="Add"
-        onClick={this.handleAdd.bind(this)}
-      />
+    <CardActions style={{paddingBottom:0, textAlign: 'center'}}>
       <TextField hintText="Enter an URL"
         style={{marginLeft:"10px"}}
         value={userInput}
@@ -140,9 +133,13 @@ class Bookmarks extends React.Component
         onChange={this.handleChange.bind(this)}
         onKeyPress={this.handleKeyPress.bind(this)}
       />
+
+      <RaisedButton label="Add"
+        onTouchTap={this.handleAdd.bind(this)}
+      />
     </CardActions>
 
-    <CardText style={{paddingTop:0}}>
+    <CardText style={{paddingTop:0, overflowY:'auto', display:'flex', justifyContent:'center'}}>
       <List> { !uid
         ? <ListItem>
             <RaisedButton label="Log in to use this widget" onTouchTap={popupAction} />
@@ -156,7 +153,7 @@ class Bookmarks extends React.Component
               primaryText={<Link to={bookmarks[k].url} />}
               leftIcon={<Favicon url={bookmarks[k].url} />}
               rightIcon={<Delete id={k} color="white" hoverColor="#757575"
-                                 onClick={() => this.handleDelete(k)} />}
+                                 onTouchTap={() => this.handleDelete(k)} />}
             />
           }
         )
