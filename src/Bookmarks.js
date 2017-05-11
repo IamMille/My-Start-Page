@@ -112,22 +112,17 @@ class Bookmarks extends React.Component
       keys = keys.reverse();
     }
 
-    return (<Card
-        expandable={true}
-        expanded={false}
-      >
+    return (<Card>
       <CardHeader
         title="Bookmarks"
         subtitle={this.state.message}
-        showExpandableButton={true}
-        closeIcon={<MoreVertIcon />}
-        openIcon={<MoreVertIcon />}
         style={{paddingBottom:"4px"}}
       >
       <IconMenu
         iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
         anchorOrigin={{horizontal: 'right', vertical: 'top'}}
         targetOrigin={{horizontal: 'right', vertical: 'top'}}
+        style={{position:"absolute", top:3, right:4}}
       >
         <MenuItem primaryText={userSortOrder === "name" ? <b>Sort by name</b> : "Sort by name" } onClick={() => this.setState({userSortOrder:"name"})} />
         <MenuItem primaryText={userSortOrder === "added" ? <b>Sort by added</b> : "Sort by added" } onClick={() => this.setState({userSortOrder:"added"})} />
@@ -155,14 +150,10 @@ class Bookmarks extends React.Component
 
         : keys.map(k =>
           {
-            const title = bookmarks[k].title
-                          ? bookmarks[k].title
-                          : bookmarks[k].url.replace(/^https?:\/\/(?:www\.)?/i, "");
-
             return <ListItem key={k}
               insetChildren={true}
               style={{overflow:"hidden", whiteSpace:"nowrap"}}
-              primaryText={<Link to={bookmarks[k].url} text={title} />}
+              primaryText={<Link to={bookmarks[k].url} />}
               leftIcon={<Favicon url={bookmarks[k].url} />}
               rightIcon={<Delete id={k} color="white" hoverColor="#757575"
                                  onClick={() => this.handleDelete(k)} />}
@@ -187,7 +178,7 @@ class Bookmarks extends React.Component
 
 class Link extends React.Component {
     render() {
-      const {to, text} = this.props;
+      const {to} = this.props;
 
       var [p1, ...p3] = to.replace(/^https?:\/\/(?:www\.)?/i, "")
                           .replace(/\/$/, "")
