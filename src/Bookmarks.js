@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import {Card, CardActions, CardHeader, CardTitle, CardText} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import {List, ListItem} from 'material-ui/List';
@@ -8,7 +8,7 @@ import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Delete from 'material-ui/svg-icons/action/delete';
-
+import { Grid, Row, Col } from 'react-flexbox-grid';
 import * as firebase from 'firebase';
 
 
@@ -50,8 +50,7 @@ class Bookmarks extends React.Component
       });
 
       rootRef.child("items").off('value');
-      rootRef.child("items").on('value', snap =>
-      {
+      rootRef.child("items").on('value', snap => {
         this.setState({bookmarks: snap.val() || {}});
       });
 
@@ -68,15 +67,13 @@ class Bookmarks extends React.Component
     if (!userInput) return;
     if (userInputError) return;
 
-    var newItem = {
-      url: userInput,
-      title: "",
-      timestamp: firebase.database.ServerValue.TIMESTAMP
-    };
+    var newItem = {url: userInput};
 
     firebase.database()
       .ref(`users/${uid}/bookmarks`)
       .child("items").push(newItem);
+
+    // fetch title and desc?
   }
 
   handleChange(e)
@@ -98,71 +95,72 @@ class Bookmarks extends React.Component
     const {uid, popupAction} = this.props;
     const {userInput, userInputError, bookmarks} = this.state;
 
-    return <Card>
-      <CardHeader
-          title="Bookmarks"
-          subtitle={this.state.message}
+    return (<Card
+        expandable={true}
+        expanded={false}
       >
-        <IconMenu
-          iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-          anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-          targetOrigin={{horizontal: 'right', vertical: 'top'}}
-        >
-          <MenuItem primaryText="Order by name" />
-          <MenuItem primaryText="Order by added" />
-        </IconMenu>
+      <CardHeader
+        title="Bookmarks"
+        subtitle={this.state.message}
+        showExpandableButton={true}
+        closeIcon={<MoreVertIcon />}
+        openIcon={<MoreVertIcon />}
+        style={{paddingBottom:"4px"}}
+      >
+      <IconMenu
+        iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+        anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+        targetOrigin={{horizontal: 'right', vertical: 'top'}}
+      >
+        <MenuItem primaryText="Order by name" />
+        <MenuItem primaryText="Order by added" />
+      </IconMenu>
     </CardHeader>
-    <CardActions>
-      <List>
-        <ListItem>
-          <TextField hintText="Enter an URL"
-            style={{width: 230}}
-            value={userInput}
-            errorText={userInputError}
-            onChange={this.handleChange.bind(this)}
-          />
-          <RaisedButton label="Add"
-            onClick={this.handleAdd.bind(this)}
-          />
-        </ListItem>
-      </List>
+
+    <CardActions style={{paddingTop:0, paddingBottom:0}}>
+      <RaisedButton label="Add"
+        onClick={this.handleAdd.bind(this)}
+      />
+      <TextField hintText="Enter an URL"
+        style={{marginLeft:"10px"}}
+        value={userInput}
+        errorText={userInputError}
+        onChange={this.handleChange.bind(this)}
+      />
     </CardActions>
 
-      <CardText>
-        <List>
+    <CardText style={{paddingTop:0}}>
+      <List> { !uid
+        ? <ListItem>
+            <RaisedButton label="Log in to use this widget" onTouchTap={popupAction} />
+          </ListItem>
 
-        { !uid
-          ? <ListItem>
-              <RaisedButton label="Log in to use this widget" onTouchTap={popupAction} />
-            </ListItem>
+        : Object.keys(bookmarks).reverse().map(k =>
+          {
+            const title = bookmarks[k].title
+                          ? bookmarks[k].title
+                          : bookmarks[k].url.replace(/^https?:\/\/(?:www\.)?/i, "");
 
-          : Object.keys(bookmarks).reverse().map(k =>
-            {
-              const title = bookmarks[k].title
-                            ? bookmarks[k].title
-                            : bookmarks[k].url.replace(/^https?:\/\/(?:www\.)?/i, "");
-
-              return <ListItem key={k}
-                insetChildren={true}
-                style={{overflow:"hidden"}}
-                primaryText={title}
-                leftIcon={<Favicon url={bookmarks[k].url} />}
-                rightIcon={<Delete id={k} color="white" hoverColor="#757575"
-                                   onClick={() => this.handleDelete(k)} />}
-              />
-          })
-        }
-
-        </List>
-      </CardText>
-    </Card>;
+            return <ListItem key={k}
+              insetChildren={true}
+              style={{overflow:"hidden", whiteSpace:"nowrap"}}
+              primaryText={title}
+              leftIcon={<Favicon url={bookmarks[k].url} />}
+              rightIcon={<Delete id={k} color="white" hoverColor="#757575"
+                                 onClick={() => this.handleDelete(k)} />}
+            />
+          }
+        )
+      } </List>
+    </CardText>
+  </Card>);
   }
 
   handleDelete(id)
   {
     const {uid} = this.props;
     if (!uid) return;
-    console.log(id);
+
     firebase.database()
       .ref(`users/${uid}/bookmarks/items`)
       .child(id).set(null);
