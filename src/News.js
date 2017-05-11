@@ -18,7 +18,7 @@ class News extends Component {
         this.state = {
             providerListNames: [],
             providerListId:[],
-            selectedProvider: 'bbc-news',
+            selectedProvider: 'techradar',
             selectedSortBy: 'top',
             currentResponse: ''
         }
@@ -33,7 +33,7 @@ class News extends Component {
 
         let url = new Request(`https://newsapi.org/v1/articles?source=${this.state.selectedProvider}&sortBy=${this.state.selectedSortBy}&apiKey=${API_KEY}`, { method: 'GET', mode: 'cors', cache: 'default' });
         fetch(url).then((res)=>{
-            if(res.ok)return res.json();
+            return res.json();
         }).then((data)=>{
             this.setState({currentResponse:data.articles});
         }).catch(function(error) {
@@ -44,8 +44,8 @@ class News extends Component {
 
     getLastSelectedNewsSite = () => {
         firebase.database().ref(`users/${this.props.uid}/news`).child('selectedProvider').on('value', s=>{
-            this.setState({selectedProvider: s.val()});
-            this.getNews();
+                this.setState({selectedProvider: s.val()});
+                this.getNews();
         });
     };
 

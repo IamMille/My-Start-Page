@@ -53,9 +53,11 @@ class TodoApp extends Component {
     }
 
     updateTodos = (newTodos) =>{
-        firebase.database().ref(`users/${this.props.uid}/todos`).update({
-            list: newTodos
-        });
+        if(this.props.uid) {
+            firebase.database().ref(`users/${this.props.uid}/todos`).update({
+                list: newTodos
+            });
+        }
     };
     initTodos = () =>{
         firebase.database().ref(`users/${this.props.uid}/todos`).child('list').on('value', s => {

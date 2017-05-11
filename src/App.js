@@ -155,7 +155,9 @@ class App extends Component {
                         <Col className="widget" xs={12}>
                             <Header popupAction={this.popupAction} signOut={this.handleSignOut} uid={this.state.uid}  />
                         </Col>
-
+                        <Col className="widget " xs={12}  md={6} lg={8}>
+                            <News uid={this.state.uid} username={this.state.username}/>
+                        </Col>
                         <Col className="widget" xs={12}  md={6} lg={4}>
                           <Info darkTheme={this.state.darkTheme} changeTheme={this.changeTheme} deleteCurrentUser={this.deleteCurrentUser} uid={this.state.uid}/>
                         </Col>
@@ -163,16 +165,13 @@ class App extends Component {
                             <Note uid={this.state.uid} username={this.state.username} />
                         </Col>
                         <Col className="widget" xs={12}  md={6} lg={4}>
-                          <Bookmarks uid={this.state.uid} username={this.state.username} popupAction={this.popupAction}/>
+                            <Todo uid={this.state.uid}/>
                         </Col>
-                        <Col className="widget " xs={12}  md={6} lg={8}>
-                            <News uid={this.state.uid} username={this.state.username}/>
+                        <Col className="widget" xs={12}  md={6} lg={4}>
+                          <Bookmarks uid={this.state.uid} username={this.state.username} popupAction={this.popupAction}/>
                         </Col>
                         <Col className="widget" xs={12}  md={6} lg={4}>
                             <Game uid={this.state.uid} username={this.state.username} />
-                        </Col>
-                        <Col className="widget" xs={12}  md={6} lg={4}>
-                            <Todo />
                         </Col>
                         <Col className="widget" xs={12}  md={12} lg={8}>
                             <Video />
