@@ -5,7 +5,7 @@ import Dialog from 'material-ui/Dialog';
 import * as firebase from 'firebase';
 import './game.css';
 
-const GAMESIZE = 20;
+const GAMESIZE = 7;
 
 class Game extends Component
 {
@@ -45,7 +45,7 @@ class Game extends Component
   }
 
   render() {
-    const {isGameStarted, isGameOver, isUserTurn, pins, numSelectedPins, gameScore} = this.state;
+    const {isGameStarted, isGameOver, isUserTurn, pins, numPins, numSelectedPins, gameScore} = this.state;
 
     return <Card>
       <CardTitle
@@ -67,7 +67,7 @@ class Game extends Component
             </span>
           : "" }
 
-        { isGameStarted && isUserTurn != null && numSelectedPins === 0
+        { isGameStarted && isUserTurn != null && numSelectedPins === 0 && numPins > 5
           ? <RaisedButton label="Restart game" onClick={this.handleRestartgameClick} />
           : "" }
 
