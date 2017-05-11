@@ -21,6 +21,7 @@ class Bookmarks extends React.Component
       message: "Why not save some bookmarks?",
       userInput: "",
       userInputError: "",
+      userSortOrder: "added",
       bookmarks: {}
     }
   }
@@ -73,6 +74,8 @@ class Bookmarks extends React.Component
       .ref(`users/${uid}/bookmarks`)
       .child("items").push(newItem);
 
+    this.setState({userInput:""});
+
     // fetch title and desc?
   }
 
@@ -91,9 +94,23 @@ class Bookmarks extends React.Component
     this.setState(newState);
   }
 
+  handleKeyPress(e)
+  {
+    if (e.key === "Enter")
+      this.handleAdd();
+  }
+
   render() {
     const {uid, popupAction} = this.props;
-    const {userInput, userInputError, bookmarks} = this.state;
+    const {userInput, userInputError, userSortOrder, bookmarks} = this.state;
+
+    var keys = Object.keys(bookmarks);
+
+    if (userSortOrder === "name")
+      keys = keys.sort((a,b) => keys[a]-keys[b]);
+    else { // by Added (reversed)
+      keys = keys.reverse();
+    }
 
     return (<Card
         expandable={true}
@@ -112,8 +129,8 @@ class Bookmarks extends React.Component
         anchorOrigin={{horizontal: 'right', vertical: 'top'}}
         targetOrigin={{horizontal: 'right', vertical: 'top'}}
       >
-        <MenuItem primaryText="Order by name" />
-        <MenuItem primaryText="Order by added" />
+        <MenuItem primaryText={userSortOrder === "name" ? <b>Sort by name</b> : "Sort by name" } onClick={() => this.setState({userSortOrder:"name"})} />
+        <MenuItem primaryText={userSortOrder === "added" ? <b>Sort by added</b> : "Sort by added" } onClick={() => this.setState({userSortOrder:"added"})} />
       </IconMenu>
     </CardHeader>
 
@@ -126,6 +143,7 @@ class Bookmarks extends React.Component
         value={userInput}
         errorText={userInputError}
         onChange={this.handleChange.bind(this)}
+        onKeyPress={this.handleKeyPress.bind(this)}
       />
     </CardActions>
 
@@ -135,7 +153,7 @@ class Bookmarks extends React.Component
             <RaisedButton label="Log in to use this widget" onTouchTap={popupAction} />
           </ListItem>
 
-        : Object.keys(bookmarks).reverse().map(k =>
+        : keys.map(k =>
           {
             const title = bookmarks[k].title
                           ? bookmarks[k].title
@@ -144,7 +162,7 @@ class Bookmarks extends React.Component
             return <ListItem key={k}
               insetChildren={true}
               style={{overflow:"hidden", whiteSpace:"nowrap"}}
-              primaryText={title}
+              primaryText={<Link to={bookmarks[k].url} text={title} />}
               leftIcon={<Favicon url={bookmarks[k].url} />}
               rightIcon={<Delete id={k} color="white" hoverColor="#757575"
                                  onClick={() => this.handleDelete(k)} />}
@@ -165,6 +183,21 @@ class Bookmarks extends React.Component
       .ref(`users/${uid}/bookmarks/items`)
       .child(id).set(null);
   }
+}
+
+class Link extends React.Component {
+    render() {
+      const {to, text} = this.props;
+
+      var [p1, ...p3] = to.replace(/^https?:\/\/(?:www\.)?/i, "")
+                          .replace(/\/$/, "")
+                          .split("/");
+
+      var p2 = p3.join("/").length > 32-p1.length ? "/..." : ""
+      var p3 = p3.length ? "/" + p3.join("/").substr(-32+p1.length) : "";
+
+      return <a href={to} target="_blank">{p1 + p2 + p3}</a>
+    }
 }
 
 class Favicon extends React.Component
