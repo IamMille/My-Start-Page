@@ -5,9 +5,6 @@ import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import * as firebase from 'firebase';
-const API_KEY = 'AIzaSyBT6jRu5WgEHPDx8FSOpGKvcvvv3V0qaRk';
-
-
 
 
 class Note extends Component {
@@ -30,7 +27,6 @@ class Note extends Component {
 
 
 
-
 /** updateNotes till user id **/
 
    componentWillMount() {
@@ -50,8 +46,8 @@ class Note extends Component {
         };
     
     render() {
-        return <Card>
-            <CardHeader title="Note" subtitle={`Make a note`}/>
+        return (<Card>
+            <CardHeader title="Note" subtitle={`Make a note`} />
             
             
             
@@ -62,6 +58,7 @@ class Note extends Component {
            
             
         </Card>
+            )
     }
 
 
