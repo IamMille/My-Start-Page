@@ -51,7 +51,7 @@ class Info extends Component {
                 <PopupInfo popup={this.state.popup} close={this.close}  info={this.state.currentInformation} deleteCurrentUser={this.props.deleteCurrentUser} uid={this.props.uid}/>
                 <CardTitle title="Information and settings"   actAsExpander={false} showExpandableButton={false} />
                 <List>
-                    {this.props.uid?<ListItem><Toggle toggled={!!this.props.darkTheme} onToggle={this.props.changeTheme} label={this.props.darkTheme?<Moon/>:<Sun/>}/></ListItem>: <ListItem>Log in to use additional features</ListItem>}
+                    {this.props.uid?<ListItem><Toggle toggled={!!this.props.darkTheme} onToggle={this.props.changeTheme} label={this.props.darkTheme?<Moon/>:<Sun/>}/></ListItem>: <ListItem onTouchTap={this.props.popupAction}>Log in to use additional features</ListItem>}
                     {buttons}
                 </List>
             </Card>
