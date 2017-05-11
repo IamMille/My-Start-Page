@@ -11,7 +11,8 @@ class Note extends Component {
     constructor() {
         super();
         this.state = {
-            text: ''
+            text: '',
+            timestamp: 0
         }
     }
     handleChange=(e)=>{
@@ -21,14 +22,19 @@ class Note extends Component {
         });
     };
 
-    handleRandomWord = () => {
-      fetch('https://api.wordnik.com/v4/words.json/randomWords?hasDictionaryDef=true&minCorpusCount=0&minLength=5&maxLength=15&limit=1&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5').then((res)=>{
-          return res.json();
-      }).then((data)=>{
-          firebase.database().ref(`users/${this.props.uid}/note`).update({
-              text: this.state.text + ' ' + data[0].word
-          })
-      });
+    handleTimestamp = () => {
+            let url1 = "https://api.timezonedb.com/v2/get-time-zone?key=FPYC4024VFCA&format=json&by=zone&zone=Europe/Stockholm";
+            let req1= new XMLHttpRequest();
+            req1.onreadystatechange= () => {
+                if(req1.status === 200 && req1.readyState === 4){
+                    let json1= JSON.parse(req1.responseText);
+                    firebase.database().ref(`users/${this.props.uid}/note`).update({
+                        text: this.state.text + json1.formatted
+                    })
+                }
+            };
+            req1.open('get', url1);
+            req1.send();
     };
 
     updateNoteText = () => {
@@ -49,7 +55,7 @@ class Note extends Component {
             <Card>
                 <CardTitle title="Make a note"  subtitle={`I will remember it for you`}/>
                 <CardActions>
-                    {this.props.uid?<RaisedButton label="Inject random word" onTouchTap={this.props.uid?this.handleRandomWord:null} />:<RaisedButton label="log in to use the note widget" onTouchTap={this.props.popupAction}/>}
+                    {this.props.uid?<RaisedButton label="Get current time" onTouchTap={this.props.uid?this.handleTimestamp:null} />:<RaisedButton label="log in to use the note widget" onTouchTap={this.props.popupAction}/>}
                 </CardActions>
                 <CardText>
                     <TextField name='text' value={this.state.text?this.state.text:''} rows={10} rowsMax={10} fullWidth={true} multiLine={true} hintText={`what's on your mind ${this.props.uid?',': ' '} ${this.props.username}?`} onChange={this.props.uid?this.handleChange:null}/>

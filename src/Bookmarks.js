@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card, CardActions, CardHeader, CardTitle, CardText} from 'material-ui/Card';
+import {Card, CardActions, CardTitle, CardText} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import {List, ListItem} from 'material-ui/List';
@@ -8,8 +8,9 @@ import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Delete from 'material-ui/svg-icons/action/delete';
-import { Grid, Row, Col } from 'react-flexbox-grid';
 import * as firebase from 'firebase';
+import {fullWhite, fullBlack} from 'material-ui/styles/colors';
+
 
 
 class Bookmarks extends React.Component
@@ -115,7 +116,7 @@ class Bookmarks extends React.Component
     return (<Card>
       <CardTitle title="Bookmarks">
       <IconMenu
-        iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+        iconButtonElement={<IconButton><MoreVertIcon color={this.props.darkTheme?fullWhite:fullBlack}/></IconButton>}
         anchorOrigin={{horizontal: 'right', vertical: 'top'}}
         targetOrigin={{horizontal: 'right', vertical: 'top'}}
         style={{position:"absolute", top:3, right:4}}
@@ -149,7 +150,7 @@ class Bookmarks extends React.Component
           {
             return <ListItem key={k}
               insetChildren={true}
-              style={{overflow:"hidden", whiteSpace:"nowrap"}}
+              style={{overflow:"hidden", whiteSpace:"nowrap" }}
               primaryText={<Link to={bookmarks[k].url} />}
               leftIcon={<Favicon url={bookmarks[k].url} />}
               rightIcon={<Delete id={k} color="white" hoverColor="#757575"
@@ -182,7 +183,7 @@ class Link extends React.Component {
                           .split("/");
 
       var p2 = p3.join("/").length > 32-p1.length ? "/..." : ""
-      var p3 = p3.length ? "/" + p3.join("/").substr(-32+p1.length) : "";
+       p3 = p3.length ? "/" + p3.join("/").substr(-32+p1.length) : "";
 
       return <a href={to} target="_blank">{p1 + p2 + p3}</a>
     }

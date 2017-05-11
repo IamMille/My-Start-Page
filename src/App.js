@@ -99,7 +99,7 @@ class App extends Component {
                     this.setState({darkTheme: s.val()});
                 });
             } else {
-                this.setState({uid: false, username: ''});
+                this.setState({uid: false, username: '', darkTheme: false});
             }
         }.bind(this));
     }
@@ -162,13 +162,13 @@ class App extends Component {
                           <Info darkTheme={this.state.darkTheme} changeTheme={this.changeTheme} deleteCurrentUser={this.deleteCurrentUser} uid={this.state.uid} popupAction={this.popupAction}/>
                         </Col>
                         <Col className="widget" xs={12}  md={6} lg={4}>
-                            <Note uid={this.state.uid} username={this.state.username} />
+                            <Note uid={this.state.uid} username={this.state.username} popupAction={this.popupAction} />
                         </Col>
                         <Col className="widget" xs={12}  md={6} lg={4}>
                             <Todo uid={this.state.uid}/>
                         </Col>
                         <Col className="widget" xs={12}  md={6} lg={4}>
-                          <Bookmarks uid={this.state.uid} username={this.state.username} popupAction={this.popupAction}/>
+                          <Bookmarks uid={this.state.uid} username={this.state.username} popupAction={this.popupAction} darkTheme={this.state.darkTheme}/>
                         </Col>
                         <Col className="widget" xs={12}  md={6} lg={4}>
                             <Game uid={this.state.uid} username={this.state.username} />
