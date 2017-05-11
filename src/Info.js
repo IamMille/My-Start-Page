@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import {Card ,CardHeader} from 'material-ui/Card';
+import {Card ,CardTitle} from 'material-ui/Card';
 import Dialog from 'material-ui/Dialog';
 import RaisedButton from 'material-ui/RaisedButton';
 import {List, ListItem} from 'material-ui/List';
@@ -19,11 +19,11 @@ class Info extends Component {
                 'Then you will prompted with a dialog that asks you to ' +
                 'log in with the wanted provider. Smooth.'},
 
-                {topic: 'How to change theme', category: 'Styling', info: 'In the information and settings widget you can toggle between light and dark theme. The ' +
+                {topic: 'How to change theme', category: 'Styling', info: 'In the information and settings widget you can toggle between light and dark theme (must be logged in). The ' +
                 'settings will be saved and remembered on your user account.'},
 
                 {topic: 'Powered by', category: 'About', info: 'NewsAPI.org, Google and the Widgify team'},
-                
+
                 {topic: 'Anything else on you mind?', category: 'Contact', info: 'Do not hesitate to contact us at widgify@widgify.widgify if you have any questions' +
                 ' or ideas on how to improve this site.'},
 
@@ -49,9 +49,9 @@ class Info extends Component {
         return (
             <Card>
                 <PopupInfo popup={this.state.popup} close={this.close}  info={this.state.currentInformation} deleteCurrentUser={this.props.deleteCurrentUser} uid={this.props.uid}/>
-                <CardHeader title="Information and settings"   actAsExpander={false} showExpandableButton={false} />
+                <CardTitle title="Information and settings"   actAsExpander={false} showExpandableButton={false} />
                 <List>
-                    <ListItem><Toggle toggled={!!this.props.darkTheme} onToggle={this.props.changeTheme} label={this.props.darkTheme?<Moon/>:<Sun/>}/></ListItem>
+                    {this.props.uid?<ListItem><Toggle toggled={!!this.props.darkTheme} onToggle={this.props.changeTheme} label={this.props.darkTheme?<Moon/>:<Sun/>}/></ListItem>: <ListItem onTouchTap={this.props.popupAction}>Log in to use additional features</ListItem>}
                     {buttons}
                 </List>
             </Card>

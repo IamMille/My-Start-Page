@@ -14,7 +14,7 @@ const VideoList = (props) => {
     });
 
     return (
-            <List style={{height: 280,overflowY: 'auto'}}>
+            <List style={{height: 270,overflowY: 'auto'}}>
                 {videoItems}
             </List>
         );

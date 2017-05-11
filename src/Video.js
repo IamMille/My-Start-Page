@@ -6,7 +6,7 @@ import VideoDetail from './components/video_detail';
 import './App.css';
 const API_KEY = 'AIzaSyCQMSAf-4GdhWVd8YrSC43s-OskR0GzT98';
 import { Grid, Row, Col } from 'react-flexbox-grid';
-import {Card, CardHeader, CardMedia} from 'material-ui/Card';
+import {Card, CardTitle, CardMedia} from 'material-ui/Card';
 
 
 class Video extends Component {
@@ -36,7 +36,7 @@ class Video extends Component {
 
         return (
             <Card>
-                <CardHeader title="YouTube Player"/>
+                <CardTitle title="YouTube Player"/>
                 <CardMedia style={{width:'95%', margin:'0 auto'}}>
                     <Grid>
                         <Row>

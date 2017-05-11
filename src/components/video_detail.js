@@ -14,7 +14,7 @@ const VideoDetail = ({video}) => {
 
     return (
         <CardMedia mediaStyle={{width: '100%'}}>
-            <iframe style={{height: 325}} src={url}/>
+            <iframe style={{height: 300}} src={url}/>
             {/*<CardText className="details">
                 {video.snippet.description}
             </CardText>*/}
