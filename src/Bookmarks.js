@@ -109,9 +109,8 @@ class Bookmarks extends React.Component
 
     if (userSortOrder === "name")
       keys = keys.sort((a,b) => keys[a]-keys[b]);
-    else { // by Added (reversed)
+    else // by Added (reversed)
       keys = keys.reverse();
-    }
 
     return (<Card>
       <CardTitle title="Bookmarks">
@@ -140,7 +139,7 @@ class Bookmarks extends React.Component
       />
     </CardActions>
 
-    <CardText style={{paddingTop:0, overflowY:'auto', display:'flex', justifyContent:'center'}}>
+    <CardText style={{paddingTop:0, overflowY:'hidden', display:'flex', justifyContent:'center'}}>
       <List> { !uid
         ? <ListItem>
             <RaisedButton label="Log in to use this widget" onTouchTap={popupAction} />
@@ -174,7 +173,8 @@ class Bookmarks extends React.Component
   }
 }
 
-class Link extends React.Component {
+class Link extends React.Component
+{
     render() {
       const {to} = this.props;
 
@@ -182,9 +182,9 @@ class Link extends React.Component {
                           .replace(/\/$/, "")
                           .split("/");
 
-      var p2 = p3.join("/").length > 32-p1.length ? "/..." : ""
-       p3 = p3.length ? "/" + p3.join("/").substr(-32+p1.length) : "";
 
+      var p2 = p3.join("/").length > 20-p1.length ? "/..." : ""; // 32
+       p3 = p3.length ? "/" + p3.join("/").substr(-20+p1.length) : ""; //32
       return <a href={to} target="_blank">{p1 + p2 + p3}</a>
     }
 }
