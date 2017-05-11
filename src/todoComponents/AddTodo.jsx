@@ -33,7 +33,7 @@ class AddTodo extends Component {
         return (
             <CardActions style={{textAlign: 'center'}}>
                 <TextField onChange={this.handleChange} value={this.state.text} onKeyPress={this.handleKeyPress} hintText="What do you need to do?"/>
-                <RaisedButton onTouchTap={this.handleSubmit} label="Add todo" />
+                <RaisedButton onTouchTap={this.handleSubmit} label="Add" />
             </CardActions>
         );
     }
